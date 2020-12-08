@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:d_stack/widget/home_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:fluzedlol/config/provider_manager.dart';
+import 'package:fluzedlol/config/router_manager.dart';
 import 'package:fluzedlol/ui/page/login/login_page.dart';
 import 'package:fluzedlol/ui/page/lol_main_page.dart';
 import 'package:fluzedlol/viewmodel/locale_view_model.dart';
@@ -71,7 +72,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
 class RouterBuilder {
   static Map<String, DStackWidgetBuilder> builders() {
-    Map<String, DStackWidgetBuilder> builders = {'login/': loginBuilder};
+    Map<String, DStackWidgetBuilder> builders = {
+      RouterName.login: loginBuilder
+    };
     return builders;
   }
 

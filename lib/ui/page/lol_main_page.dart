@@ -1,5 +1,11 @@
-import 'package:d_stack/d_stack.dart';
 import 'package:flutter/material.dart';
+import 'package:fluzedlol/provider/provider_widget.dart';
+import 'package:fluzedlol/ui/page/home/home_page.dart';
+import 'package:fluzedlol/ui/page/mall/mall_page.dart';
+import 'package:fluzedlol/ui/page/moment/moment_page.dart';
+import 'package:fluzedlol/ui/page/personal/personal_page.dart';
+import 'package:fluzedlol/viewmodel/lol_main_view_model.dart';
+import 'package:fluzedlol/widget/custom_with_background_widget.dart';
 
 class LolMainPage extends StatefulWidget {
   @override
@@ -7,17 +13,84 @@ class LolMainPage extends StatefulWidget {
 }
 
 class _LolMainPageState extends State<LolMainPage> {
+  FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("LolMainPage"),
-        ),
-        body: Center(
-            child: FlatButton(
-                onPressed: () {
-                  DStack.present("login/", PageType.flutter);
-                },
-                child: Text("123"))));
+    return ProviderWidget<LolMainViewModel>(
+      model: LolMainViewModel(),
+      builder: (context, model, child) => CustomWithBackGroundWidget(
+          childWidget: GestureDetector(
+              onTap: () => _focusNode.unfocus(),
+              child: Scaffold(
+                  body: IndexedStack(index: model.bottomSelectIndex, children: [
+                    HomePage(),
+                    MallPage(),
+                    MomentPage(),
+                    PersonalPage()
+                  ]),
+                  bottomNavigationBar: BottomAppBar(
+                      color: Colors.white,
+//          shape: CircularNotchedRectangle(),
+                      child: LolMainBottomBar(viewModel: model))))),
+      autoDispose: true
+    );
+  }
+}
+
+class LolMainBottomBar extends StatelessWidget {
+  final List<String> bottomBarTextList = ["首页", "商城", "Lu圈", "我的"];
+  final List<IconData> bottomBarIconList = [
+    Icons.event,
+    Icons.shop,
+    Icons.memory,
+    Icons.restore
+  ];
+  final LolMainViewModel viewModel;
+
+  LolMainBottomBar({@required this.viewModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
+        child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List<Widget>.generate(4, (index) {
+              return GestureDetector(
+                  onTap: () {
+                    viewModel?.updateBottomSelectIndex(index);
+                  },
+                  child: Stack(children: [
+                    Container(
+                        padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+                        color: Colors.white,
+                        width: MediaQuery.of(context).size.width / 4 - 10,
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Icon(bottomBarIconList[index],
+                                  color: viewModel.bottomSelectIndex == index
+                                      ? Colors.deepOrangeAccent
+                                      : Colors.grey),
+                              Container(
+                                  margin: EdgeInsets.only(top: 2.0),
+                                  child: Text(bottomBarTextList[index],
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: viewModel.bottomSelectIndex ==
+                                                  index
+                                              ? Colors.deepOrangeAccent
+                                              : Colors.grey)))
+                            ]))
+                  ]));
+            })));
   }
 }
