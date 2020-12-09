@@ -29,6 +29,7 @@ class _LolMainPageState extends State<LolMainPage> {
           childWidget: GestureDetector(
               onTap: () => _focusNode.unfocus(),
               child: Scaffold(
+                  backgroundColor: Colors.transparent,
                   body: IndexedStack(index: model.bottomSelectIndex, children: [
                     HomePage(),
                     MallPage(),
@@ -36,11 +37,17 @@ class _LolMainPageState extends State<LolMainPage> {
                     PersonalPage()
                   ]),
                   bottomNavigationBar: BottomAppBar(
-                      color: Colors.white,
+                      color: Colors.transparent,
 //          shape: CircularNotchedRectangle(),
                       child: LolMainBottomBar(viewModel: model))))),
       autoDispose: true
     );
+  }
+  @override
+  void dispose() {
+    _focusNode?.unfocus();
+    _focusNode?.dispose();
+    super.dispose();
   }
 }
 
@@ -71,7 +78,7 @@ class LolMainBottomBar extends StatelessWidget {
                   child: Stack(children: [
                     Container(
                         padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
-                        color: Colors.white,
+                        color: Colors.transparent,
                         width: MediaQuery.of(context).size.width / 4 - 10,
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -79,7 +86,7 @@ class LolMainBottomBar extends StatelessWidget {
                               Icon(bottomBarIconList[index],
                                   color: viewModel.bottomSelectIndex == index
                                       ? Colors.deepOrangeAccent
-                                      : Colors.grey),
+                                      : Colors.white),
                               Container(
                                   margin: EdgeInsets.only(top: 2.0),
                                   child: Text(bottomBarTextList[index],
@@ -88,7 +95,7 @@ class LolMainBottomBar extends StatelessWidget {
                                           color: viewModel.bottomSelectIndex ==
                                                   index
                                               ? Colors.deepOrangeAccent
-                                              : Colors.grey)))
+                                              : Colors.white)))
                             ]))
                   ]));
             })));

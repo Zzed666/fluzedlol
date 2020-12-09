@@ -1,6 +1,6 @@
-import 'package:fluzedlol/provider/provider_view_model.dart';
+import 'package:flutter/material.dart';
 
-class LolMainViewModel extends ProviderViewModel {
+class LolMainViewModel with ChangeNotifier {
   int bottomSelectIndex = 0;
 
   updateBottomSelectIndex(int index) {
