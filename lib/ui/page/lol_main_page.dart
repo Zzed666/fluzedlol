@@ -37,7 +37,7 @@ class _LolMainPageState extends State<LolMainPage> {
                     PersonalPage()
                   ]),
                   bottomNavigationBar: BottomAppBar(
-                      color: Colors.transparent,
+                      color: Colors.white,
 //          shape: CircularNotchedRectangle(),
                       child: LolMainBottomBar(viewModel: model))))),
       autoDispose: true
@@ -85,8 +85,8 @@ class LolMainBottomBar extends StatelessWidget {
                             children: <Widget>[
                               Icon(bottomBarIconList[index],
                                   color: viewModel.bottomSelectIndex == index
-                                      ? Colors.deepOrangeAccent
-                                      : Colors.white),
+                                      ? Colors.deepPurple
+                                      : Colors.black),
                               Container(
                                   margin: EdgeInsets.only(top: 2.0),
                                   child: Text(bottomBarTextList[index],
@@ -94,8 +94,8 @@ class LolMainBottomBar extends StatelessWidget {
                                           fontSize: 11,
                                           color: viewModel.bottomSelectIndex ==
                                                   index
-                                              ? Colors.deepOrangeAccent
-                                              : Colors.white)))
+                                              ? Colors.deepPurple
+                                              : Colors.black)))
                             ]))
                   ]));
             })));
