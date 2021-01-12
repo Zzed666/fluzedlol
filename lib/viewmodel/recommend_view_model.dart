@@ -26,6 +26,7 @@ class RecommendViewModel extends ProviderRefreshLoadListViewModel {
                 "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1570777609,559260948&fm=15&gp=0.jpg",
                 "title",
                 "提莫队长前来送命",
+                "快讯",
                 "linkUrl"));
       }));
     }

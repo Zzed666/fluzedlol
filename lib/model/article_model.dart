@@ -16,10 +16,13 @@ class ArticleModel extends Object{
   @JsonKey(name: 'content')
   String content;
 
+  @JsonKey(name: 'tag')
+  String tag;
+
   @JsonKey(name: 'linkUrl')
   String linkUrl;
 
-  ArticleModel(this.type,this.imageThumbnail,this.title,this.content,this.linkUrl);
+  ArticleModel(this.type,this.imageThumbnail,this.title,this.content,this.tag,this.linkUrl);
 
   factory ArticleModel.fromJson(Map<String, dynamic> srcJson) => _$ArticleModelFromJson(srcJson);
 

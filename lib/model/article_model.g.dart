@@ -12,6 +12,7 @@ ArticleModel _$ArticleModelFromJson(Map<String, dynamic> json) {
     json['imageThumbnail'] as String,
     json['title'] as String,
     json['content'] as String,
+    json['tag'] as String,
     json['linkUrl'] as String
   );
 }
@@ -22,5 +23,6 @@ Map<String, dynamic> _$ArticleModelToJson(ArticleModel instance) =>
       'imageThumbnail': instance.imageThumbnail,
       'title': instance.title,
       'content': instance.content,
+      'tag': instance.tag,
       'linkUrl': instance.linkUrl
     };
