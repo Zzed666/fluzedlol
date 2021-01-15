@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 abstract class ProviderRefreshLoadListViewModel<T>
     extends ProviderListViewModel {
   ///分页第一页页码
-  static const int pageNumFirst = 0;
+  static const int pageNumFirst = 1;
 
   ///当前页码
   int _currentPageNum = pageNumFirst;

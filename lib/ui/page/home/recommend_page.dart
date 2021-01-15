@@ -66,7 +66,7 @@ class BannersWidget extends StatelessWidget {
             var banners = recommendViewModel.banners ?? [];
             return Container(
                 width: MediaQuery.of(context).size.width,
-                height: 100.0,
+                height: 150.0,
                 child: Swiper(
                     loop: true,
                     autoplay: true,
@@ -74,8 +74,16 @@ class BannersWidget extends StatelessWidget {
                     pagination: SwiperPagination(),
                     itemCount: banners.length,
                     itemBuilder: (_, index) => InkWell(
-                        onTap: () => print("banners:${banners[index]}"),
-                        child: Text(banners[index]))));
+                        onTap: () {
+                          var banner = banners[index];
+                          // Navigator.of(context).pushNamed(RouteName.articleDetail,
+                          //     arguments: Article()
+                          //       ..id = banner.id
+                          //       ..title = banner.title
+                          //       ..link = banner.url
+                          //       ..collect = false);
+                        },
+                        child: Image.network(banners[index].imageUrl, fit: BoxFit.fill))));
           }
         }));
   }

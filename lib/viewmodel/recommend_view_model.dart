@@ -1,13 +1,14 @@
+import '../model/banner_model.dart';
 import '../model/test_model.dart';
 import '../model/article_model.dart';
 import '../service/zed_lol_repository.dart';
 import '../provider/provider_refresh_load_list_view_model.dart';
 
 class RecommendViewModel extends ProviderRefreshLoadListViewModel {
-  List<String> _banners;
+  List<BannerModel> _banners;
   List<ArticleModel> _articles;
 
-  List<String> get banners => _banners;
+  List<BannerModel> get banners => _banners;
 
   List<ArticleModel> get articles => _articles;
 
@@ -15,28 +16,15 @@ class RecommendViewModel extends ProviderRefreshLoadListViewModel {
   Future<List> loadData({int pageNum}) async {
     List<Future> futures = [];
     if (pageNum == ProviderRefreshLoadListViewModel.pageNumFirst) {
-      try {
-        TestModel testModel = await ZedLolRepository.test();
-        print("testModel:${testModel.accountAge},,,,${testModel.accountGender}");
-      } catch (e, s) {
-        print("e:$e");
-      }
-      futures.add(Future.delayed(Duration(seconds: 2), () {
-        print("-----branners----");
-        return List.generate(3, (index) => "banners $index");
-      }));
-      futures.add(Future.delayed(Duration(seconds: 2), () {
-        print("-----articles----");
-        return List.generate(
-            3,
-            (index) => ArticleModel(
-                0,
-                "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1570777609,559260948&fm=15&gp=0.jpg",
-                "title",
-                "提莫队长前来送命",
-                "快讯",
-                "linkUrl"));
-      }));
+      // try {
+      //   TestModel testModel = await ZedLolRepository.test();
+      //   print("testModel:${testModel.accountAge},,,,${testModel.accountGender}");
+      // } catch (e, s) {
+      //   print("e:$e");
+      // }
+
+      futures.add(ZedLolRepository.fetchBanners());
+      futures.add(ZedLolRepository.fetchArticles(pageNum));
     }
     futures.add(Future.delayed(Duration(seconds: 2), () {
       print("-----another----");

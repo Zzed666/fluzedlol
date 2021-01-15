@@ -7,6 +7,12 @@ class ArticleModel extends Object{
   @JsonKey(name: 'type')
   int type;
 
+  @JsonKey(name: 'authorName')
+  String authorName;
+
+  @JsonKey(name: 'authorAvatar')
+  String authorAvatar;
+
   @JsonKey(name: 'imageThumbnail')
   String imageThumbnail;
 
@@ -19,10 +25,16 @@ class ArticleModel extends Object{
   @JsonKey(name: 'tag')
   String tag;
 
+  @JsonKey(name: 'commentNum')
+  int commentNum;
+
+  @JsonKey(name: 'likeNum')
+  int likeNum;
+
   @JsonKey(name: 'linkUrl')
   String linkUrl;
 
-  ArticleModel(this.type,this.imageThumbnail,this.title,this.content,this.tag,this.linkUrl);
+  ArticleModel(this.type,this.authorName,this.authorAvatar,this.imageThumbnail,this.title,this.content,this.tag,this.commentNum,this.likeNum,this.linkUrl);
 
   factory ArticleModel.fromJson(Map<String, dynamic> srcJson) => _$ArticleModelFromJson(srcJson);
 

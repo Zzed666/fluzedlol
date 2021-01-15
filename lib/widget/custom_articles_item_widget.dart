@@ -43,7 +43,7 @@ class ArticleItemOriginalWidget extends StatelessWidget {
         margin: EdgeInsets.all(10.0),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Container(
-              width: 80,
+              width: 120,
               height: 80,
               margin: EdgeInsets.only(right: 10.0),
               child: ClipRRect(
@@ -55,17 +55,40 @@ class ArticleItemOriginalWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                Text(item.content,
+                Text(item.title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     softWrap: true,
                     style: TextStyle(fontSize: 14.0)),
-                Expanded(flex: 1, child: SizedBox(width: 0.0)),
-                Text(item.tag,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    softWrap: true,
-                    style: TextStyle(fontSize: 10.0))
+                Expanded(
+                    flex: 1,
+                    child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(item.tag,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            softWrap: true,
+                            style: TextStyle(fontSize: 10.0)))),
+                Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                          constraints: BoxConstraints(maxWidth: 80.0),
+                          child: Text(item.authorName,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 12.0, color: Colors.grey))),
+                      SizedBox(width: 10.0),
+                      Icon(Icons.comment, size: 12.0, color: Colors.grey),
+                      Text("${item.commentNum}", style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                      SizedBox(width: 10.0),
+                      Icon(Icons.thumb_up_outlined, size: 12.0, color: Colors.grey),
+                      Text("${item.likeNum}", style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                      Expanded(flex: 1, child: SizedBox(height: 0)),
+                      Icon(Icons.favorite_outline_sharp,
+                          size: 12.0, color: Colors.deepPurple)
+                    ])
               ]))
         ]));
   }
