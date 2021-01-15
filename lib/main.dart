@@ -5,6 +5,7 @@ import 'package:d_stack/widget/home_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:fluzedlol/config/provider_manager.dart';
 import 'package:fluzedlol/config/router_manager.dart';
+import 'package:fluzedlol/config/storage_manager.dart';
 import 'package:fluzedlol/ui/page/login/login_page.dart';
 import 'package:fluzedlol/ui/page/lol_main_page.dart';
 import 'package:fluzedlol/viewmodel/locale_view_model.dart';
@@ -22,6 +23,7 @@ void main() {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   DStack.instance.register(
       builders: RouterBuilder.builders(), observer: MyLifeCycleObserver());
+  StorageManager.init();
   runApp(MyApp());
   // Android状态栏透明 splash为白色,所以调整状态栏文字为黑色
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

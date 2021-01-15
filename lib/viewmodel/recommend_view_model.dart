@@ -1,4 +1,6 @@
-import 'package:fluzedlol/model/article_model.dart';
+import '../model/test_model.dart';
+import '../model/article_model.dart';
+import '../service/zed_lol_repository.dart';
 import '../provider/provider_refresh_load_list_view_model.dart';
 
 class RecommendViewModel extends ProviderRefreshLoadListViewModel {
@@ -13,6 +15,12 @@ class RecommendViewModel extends ProviderRefreshLoadListViewModel {
   Future<List> loadData({int pageNum}) async {
     List<Future> futures = [];
     if (pageNum == ProviderRefreshLoadListViewModel.pageNumFirst) {
+      try {
+        TestModel testModel = await ZedLolRepository.test();
+        print("testModel:${testModel.accountAge},,,,${testModel.accountGender}");
+      } catch (e, s) {
+        print("e:$e");
+      }
       futures.add(Future.delayed(Duration(seconds: 2), () {
         print("-----branners----");
         return List.generate(3, (index) => "banners $index");
