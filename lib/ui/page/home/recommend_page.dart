@@ -8,6 +8,7 @@ import '../../../viewmodel/recommend_view_model.dart';
 import '../../../provider/provider_widget.dart';
 import '../../../ui/helper/refresh_helper.dart';
 import '../../../widget/custom_articles_item_widget.dart';
+import '../../../widget/custom_skeleton_widget.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -83,7 +84,8 @@ class BannersWidget extends StatelessWidget {
                           //       ..link = banner.url
                           //       ..collect = false);
                         },
-                        child: Image.network(banners[index].imageUrl, fit: BoxFit.fill))));
+                        child: Image.network(banners[index].imageUrl,
+                            fit: BoxFit.fill))));
           }
         }));
   }
@@ -103,19 +105,24 @@ class RecommendArticlesWidget extends StatelessWidget {
                 color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
             child: Consumer<RecommendViewModel>(
                 builder: (_, recommendViewModel, __) {
-              var articles = recommendViewModel.articles ?? [];
-              return ListView.separated(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) =>
-                      ArticleItemWidget(item: articles[index]),
-                  separatorBuilder: (context, position) {
-                    return Container(
-                        height: 1,
-                        color: Colors.lightBlue,
-                        margin: EdgeInsets.only(left: 15.0, right: 15.0));
-                  },
-                  itemCount: articles.length);
+              if (recommendViewModel.isLoading)
+                return SkeletonListWidget(
+                    builder: (context, index) => ArticleItemWidget());
+              else {
+                var articles = recommendViewModel.articles ?? [];
+                return ListView.separated(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => ArticleItemWidget(
+                        isSkeleton: false, item: articles[index]),
+                    separatorBuilder: (context, position) {
+                      return Container(
+                          height: 1,
+                          color: Colors.deepPurple,
+                          margin: EdgeInsets.only(left: 15.0, right: 15.0));
+                    },
+                    itemCount: articles.length);
+              }
             })));
   }
 }

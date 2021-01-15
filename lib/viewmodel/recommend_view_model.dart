@@ -23,8 +23,13 @@ class RecommendViewModel extends ProviderRefreshLoadListViewModel {
       //   print("e:$e");
       // }
 
-      futures.add(ZedLolRepository.fetchBanners());
-      futures.add(ZedLolRepository.fetchArticles(pageNum));
+      try {
+        print("start");
+        futures.add(ZedLolRepository.fetchBanners());
+        futures.add(ZedLolRepository.fetchArticles(pageNum));
+      } catch (e) {
+        print("e:$e");
+      }
     }
     futures.add(Future.delayed(Duration(seconds: 2), () {
       print("-----another----");
